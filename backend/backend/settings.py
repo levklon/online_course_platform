@@ -35,7 +35,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'rest_framework',
-    'corsheaders'  
+    'corsheaders',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -69,7 +70,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
-
+ASGI_APPLICATION = 'backend.asgi.application'
 
 
 DATABASES = {
@@ -121,3 +122,7 @@ STATIC_URL = 'static/'
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+STRIPE_SECRET_KEY = 'your_stripe_secret_key'
+STRIPE_PUBLISHABLE_KEY = 'your_stripe_publishable_key'

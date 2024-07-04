@@ -19,5 +19,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('accounts.urls')),  # Подключаем маршруты приложения accounts
+    path('', include('accounts.urls')),  
 ]
+
