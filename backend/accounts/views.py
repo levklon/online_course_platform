@@ -5,15 +5,15 @@ from .serializers import UserSerializer, RegisterSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework import viewsets
-from .models import Course
-from .serializers import CourseSerializer
-from django.db import models
-from .models import Video
-from .serializers import VideoSerializer
+from .models import Course, Video
+from .serializers import CourseSerializer, VideoSerializer
 import stripe
 from django.conf import settings
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
+from django.shortcuts import render
+from .forms import MyForm
+
 
 class RegisterAPI(generics.GenericAPIView):
     serializer_class = RegisterSerializer
@@ -26,7 +26,6 @@ class RegisterAPI(generics.GenericAPIView):
             "user": UserSerializer(user, context=self.get_serializer_context()).data,
             "token": Token.objects.create(user=user).key
         })
-
 
 class CustomAuthToken(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
@@ -43,22 +42,9 @@ class CourseViewSet(viewsets.ModelViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
 
-
-class Video(models.Model):
-    course = models.ForeignKey(Course, related_name='videos', on_delete=models.CASCADE)
-    title = models.CharField(max_length=100)
-    url = models.URLField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.title
-    
-
 class VideoViewSet(viewsets.ModelViewSet):
     queryset = Video.objects.all()
     serializer_class = VideoSerializer
-
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -85,3 +71,15 @@ def create_checkout_session(request):
     except Exception as e:
         return JsonResponse({'error': str(e)})
 
+
+
+def my_view(request):
+    user_input = ''
+    if request.method == 'POST':
+        form = MyForm(request.POST)
+        if form.is_valid():
+            user_input = form.cleaned_data['name']  
+    else:
+        form = MyForm()
+
+    return render(request, 'my_template.html', {'form': form, 'user_input': user_input})

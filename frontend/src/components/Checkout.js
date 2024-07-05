@@ -1,6 +1,6 @@
 import React from 'react';
 import { loadStripe } from '@stripe/stripe-js';
-import VideoPlayer from './VideoPlayer';
+
 
 const stripePromise = loadStripe('your_stripe_publishable_key');
 

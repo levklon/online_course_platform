@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import VideoPlayer from './VideoPlayer';
 import Checkout from './Checkout';
+import StyledButton from './StyledButton'; 
+import LazyImage from './LazyImage'; 
+
 
 const CourseDetail = ({ match }) => {
     const [course, setCourse] = useState(null);
@@ -27,7 +30,9 @@ const CourseDetail = ({ match }) => {
                             <VideoPlayer key={video.id} url={video.url} />
                         ))}
                     </div>
-                    <Checkout /> {/* Adding Checkout Component */}
+                    <LazyImage src="path_to_image" alt="Course Image" /> {/* LazyImage */}
+                    <Checkout />
+                    <StyledButton />
                 </div>
             )}
         </div>

@@ -1,5 +1,8 @@
+import React, { Suspense, lazy } from 'react';
 import logo from './logo.svg';
 import './App.css';
+
+const LazyComponent = lazy(() => import('./components/LazyComponent'));
 
 function App() {
   return (
@@ -18,6 +21,9 @@ function App() {
           Learn React
         </a>
       </header>
+      <Suspense fallback={<div>Loading...</div>}>
+        <LazyComponent />
+      </Suspense>
     </div>
   );
 }
