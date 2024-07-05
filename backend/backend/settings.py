@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -75,13 +76,17 @@ ASGI_APPLICATION = 'backend.asgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'yourdatabase',
-        'USER': 'youruser',
-        'PASSWORD': 'yourpassword',
-        'HOST': 'db',
+        'NAME': os.getenv('MYSQL_DATABASE', 'yourdatabase'),
+        'USER': os.getenv('MYSQL_USER', 'youruser'),
+        'PASSWORD': os.getenv('MYSQL_PASSWORD', 'yourpassword'),
+        'HOST': os.getenv('DB_HOST', 'db'),
         'PORT': '3306',
     }
 }
+
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost').split(',')
+SECRET_KEY = os.getenv('SECRET_KEY', 'your-secret-key')
+DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 
 
