@@ -15,7 +15,7 @@
 The Online Course Platform is a comprehensive solution for creating, managing, and participating in online courses. Designed with a modern architecture, this platform offers a seamless experience for both instructors and students. Users can register, purchase courses, view video lessons, and engage in real-time communication through chat. The platform integrates Stripe for secure payment processing and WebSocket for real-time notifications and chat functionality.
 
 ## Technologies
-
+  
 - **Frontend**: React
 - **Backend**: Django
 - **Database**: MySQL
